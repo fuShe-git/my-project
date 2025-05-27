@@ -4,7 +4,7 @@
  * @param val 存储的值
  * @returns 
  */
-export const setCacheLoca = (key: string, val: any): boolean => {
+export const setCacheLoca = (key: string, val: unknown): boolean => {
     localStorage.setItem(key, JSON.stringify(val));
     return true
 }
@@ -14,10 +14,10 @@ export const setCacheLoca = (key: string, val: any): boolean => {
  * @param key 存储的键
  * @returns 
  */
-export const getCacheLoca = (key: string): any => {
-    const data: any = JSON.parse(localStorage.getItem(key) || '')
-    if (!data) return '该内容不存在'
-    return data
+export const getCacheLoca = (key: string): unknown => {
+    const data = localStorage.getItem(key)
+    if(!data)return '该内容不存在'
+    return JSON.parse(data)
 }
 
 /**
@@ -32,9 +32,9 @@ export const setCookie = (cname: string, cvalue: string, exdays: number): boolea
     date.setTime(date.getTime() + (exdays * 24 * 60 * 60 * 1000));
     const expires = "expires=" + date.toUTCString();
     if (exdays === 0) {
-        document.cookie = `${cname}=${cvalue};  path=/`;
+        document.cookie = `${cname}=${cvalue};path=/`;
     } else {
-        document.cookie = `${cname}=${cvalue}; ${expires}; path=/`;
+        document.cookie = `${cname}=${cvalue};${expires};path=/`;
     }
     return true
 }
@@ -45,8 +45,8 @@ export const setCookie = (cname: string, cvalue: string, exdays: number): boolea
  * @returns 
  */
 export const getCookie = (cname: string): string => {
-    let str = document.cookie
-    let arr = str.split(';')
+    const str = document.cookie
+    const arr = str.split(';')
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].includes(cname)) {
             return arr[i]
