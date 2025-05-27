@@ -15,5 +15,6 @@ export default defineConfig({
       reporter: ["text", "json", "html"],
       exclude: [...configDefaults.exclude, "src/index.ts"],
     },
+    environment:'jsdom'
   },
 });
